@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const expressLayout = require("express-ejs-layouts");
 const errorHandler = require("./middleware/errorhandler");
-const flash = require("express-flash-message");
+const flash = require("connect-flash");
 const session = require("express-session");
 
 require("dotenv").config();
@@ -17,7 +17,7 @@ connectDb();
 
 // static files
 app.use(express.static("uploads"));
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static("public"));
 app.set("views", path.join(__dirname, "views"));
 
 // template engine
@@ -37,7 +37,7 @@ app.use(
   })
 );
 // Flash messages
-// app.use(flash());
+app.use(flash());
 
 // Routers
 const home = require("./routes/customerRoutes");

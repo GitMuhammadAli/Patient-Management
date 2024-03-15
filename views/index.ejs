@@ -1,3 +1,64 @@
-<h1>
-    <%= locals.title%>
-</h1>
+<div class="top">
+    <div class="bar">
+        <h2>Welcome</h2>
+
+
+        <a href="/add" class="btn btn-primary">Add Patient</a>
+    </div>
+    <% messages.forEach(message=> { %>
+        <div class="alert alert-success" role="alert">
+            <%= message %>
+                <button type="button" class="closebtn" onclick="this.parentElement.style.display='none';"
+                    aria-label="Close">
+                    &times;
+                </button>
+        </div>
+        <% }) %>
+
+
+
+            <div class="Patient-table">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Cnic</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Age</th>
+                            <th scope="col">Gender</th>
+                            <th scope="col">Phone</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% patient.forEach((patient)=> { %>
+                            <tr>
+                                <td>
+                                    <%= patient.nic %>
+                                </td>
+                                <td>
+                                    <%= patient.name %>
+                                </td>
+                                <td>
+                                    <%= patient.age %>
+                                </td>
+                                <td>
+                                    <%= patient.gender %>
+                                </td>
+                                <td>
+                                    <%= patient.phoneNo %>
+                                </td>
+                            </tr>
+                            <% }); %>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="pagination">
+                <% if (currentPage> 1) { %>
+                    <a href="/?page=<%= currentPage - 1 %>" class="btn btn-primary">Previous</a>
+                    <% } %>
+
+                        <% if (currentPage < totalPages) { %>
+                            <a href="/?page=<%= currentPage + 1 %>" class="btn btn-primary">Next</a>
+                            <% } %>
+            </div>
+</div>

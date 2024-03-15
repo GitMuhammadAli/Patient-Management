@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const CrudPatientSchema = new Schema({
+const PatientSchema = new Schema({
   name: {
     type: String,
     required: true,
@@ -11,7 +11,6 @@ const CrudPatientSchema = new Schema({
     type: String,
     required: true,
   },
-
   age: {
     type: Number,
     required: true,
@@ -22,13 +21,20 @@ const CrudPatientSchema = new Schema({
     required: true,
   },
   phoneNo: {
-    type: Number,
+    type: String,
     required: false,
   },
   nic: {
-    type: Number,
+    type: String,
     required: true,
     unique: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
+  address: {
+    type: String,
   },
   file: {
     filename: String,
@@ -38,14 +44,5 @@ const CrudPatientSchema = new Schema({
   delete: { type: Boolean, default: false },
 });
 
-// CrudPatientSchema.method.findByNic = async function (nic) {
-//   try {
-//     const patient = await this.findOne({ nic: nic });
-//     return patient;
-//   } catch (error) {
-//     throw error;
-//   }
-// };
-
-const Patient = mongoose.model("Patient", CrudPatientSchema);
+const Patient = mongoose.model("Patient", PatientSchema);
 module.exports = Patient;
