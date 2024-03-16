@@ -1,0 +1,56 @@
+<h2>
+    <%=locals.discription %>
+</h2>
+
+
+
+<div class="view-card">
+    <div class="patient-info">
+        <label>Name:</label>
+        <span>
+            <%=locals.patient.name %>
+        </span>
+    </div>
+    <div class="patient-info">
+        <label>Email:</label>
+        <span>
+            <%=locals.patient.email %>
+        </span>
+    </div>
+    <div class="patient-info">
+        <label>Age:</label>
+        <span>
+            <%=locals.patient.age %>
+        </span>
+    </div>
+    <div class="patient-info">
+        <label>Gender:</label>
+        <span>
+            <%=locals.patient.gender %>
+        </span>
+    </div>
+    <div class="patient-info">
+        <label>Phone Number:</label>
+        <span>
+            <%=locals.patient.phoneNo %>
+        </span>
+    </div>
+    <div class="patient-info">
+        <label>NIC:</label>
+        <span>
+            <%=locals.patient.nic %>
+        </span>
+    </div>
+    <div class="patient-info">
+        <label>Created At:</label>
+        <span>
+            <%=locals.patient.createdAt %>
+        </span>
+    </div>
+    <% if (locals.patient.file !==null) { %>
+        <div class="patient-info">
+            <label>File</label>
+            <img src="/<%=locals.patient.file.path %>" alt="user-image">
+        </div>
+        <% } %>
+</div>

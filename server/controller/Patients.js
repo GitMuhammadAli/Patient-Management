@@ -1,5 +1,5 @@
 const Patient = require("../models/patientModel.js");
-const trycatchAsync = require("../../middleware/TryCatchasync");
+const trycatchAsync = require("../middleware/TryCatchasync.js");
 const sendMail = require("../utils/SendMail.js");
 
 exports.create = trycatchAsync(async (req, res, next) => {
@@ -14,7 +14,7 @@ exports.create = trycatchAsync(async (req, res, next) => {
     gender,
     phoneNo,
     nic,
-    file: image,
+    file: image ? image : null,
   });
   console.log(newPatient);
   const to = req.body.email;
@@ -42,6 +42,8 @@ exports.create = trycatchAsync(async (req, res, next) => {
     res.redirect("/add");
   }
 });
+
+exports;
 
 // exports.create = async (req, res) => {
 //   return res.write("Hello World");

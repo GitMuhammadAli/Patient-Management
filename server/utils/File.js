@@ -1,6 +1,5 @@
 const multer = require("multer");
 const fs = require("fs");
-const Patient = require("../models/patientModel.js");
 
 const UserDynamicfile = (directory) => {
   if (!fs.existsSync(directory)) {

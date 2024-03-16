@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const expressLayout = require("express-ejs-layouts");
-const errorHandler = require("./middleware/errorhandler");
+const errorHandler = require("./server/middleware/errorhandler");
 const flash = require("connect-flash");
 const session = require("express-session");
 
@@ -16,9 +16,11 @@ app.use(express.json());
 connectDb();
 
 // static files
-app.use(express.static("uploads"));
+app.use("/uploads", express.static("uploads"));
 app.use(express.static("public"));
-app.set("views", path.join(__dirname, "views"));
+app.use(express.static("views"));
+app.set(path.join(__dirname, "views"));
+app.set(path.join(__dirname, "uploads"));
 
 // template engine
 app.use(expressLayout);
@@ -40,7 +42,7 @@ app.use(
 app.use(flash());
 
 // Routers
-const home = require("./controller/routes/customerRoutes");
+const home = require("./server/routes/customerRoutes");
 
 app.use("/", home);
 
@@ -54,5 +56,5 @@ app.use(errorHandler);
 
 // Listening
 app.listen(port, () => {
-  console.log(`app start at http://localhost: ${port}`);
+  console.log(`app start at http://localhost:${port}`);
 });

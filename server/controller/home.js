@@ -1,5 +1,5 @@
 const pagelimit = require("../utils/pagelimit.js");
-const trycatchAsync = require("../../middleware/TryCatchasync");
+const trycatchAsync = require("../middleware/TryCatchasync.js");
 const Patient = require("../models/patientModel.js");
 
 exports.Home = trycatchAsync(async (req, res) => {
@@ -38,4 +38,17 @@ exports.add = trycatchAsync(async (req, res) => {
     error: error,
   };
   res.render("Patients/add", { locals });
+});
+
+exports.view = trycatchAsync(async (req, res) => {
+  const error = req.flash("error");
+  const patient = await Patient.findOne({ _id: req.params.id });
+
+  const locals = {
+    title: "Patient Management",
+    discription: "Patient Details",
+    error: error,
+    patient: patient,
+  };
+  res.render("Patients/view", { locals });
 });

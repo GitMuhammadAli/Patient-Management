@@ -27,6 +27,9 @@ const errorHandler = (err, req, res, next) => {
   } else if (err.name === "ValidationError") {
     statusCode = 400;
     errorMessage = "Validation Error: " + err.message;
+  } else {
+    statusCode = 500;
+    errorMessage = "Internal Server Error";
   }
 
   res.status(statusCode).send(`<script>alert('${errorMessage}');</script>`);

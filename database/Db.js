@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const trycatchAsync = require("../middleware/TryCatchasync");
+const trycatchAsync = require("../server/middleware/TryCatchasync");
 
 mongoose.set("strictQuery", false);
 dotenv.config();
