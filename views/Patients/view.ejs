@@ -8,49 +8,59 @@
     <div class="patient-info">
         <label>Name:</label>
         <span>
-            <%=locals.patient.name %>
+            <%= locals.patient.name %>
         </span>
     </div>
     <div class="patient-info">
         <label>Email:</label>
         <span>
-            <%=locals.patient.email %>
+            <%= locals.patient.email %>
         </span>
     </div>
     <div class="patient-info">
         <label>Age:</label>
         <span>
-            <%=locals.patient.age %>
+            <%= locals.patient.age %>
         </span>
     </div>
     <div class="patient-info">
         <label>Gender:</label>
         <span>
-            <%=locals.patient.gender %>
+            <%= locals.patient.gender %>
         </span>
     </div>
     <div class="patient-info">
         <label>Phone Number:</label>
         <span>
-            <%=locals.patient.phoneNo %>
+            <%= locals.patient.phoneNo %>
         </span>
     </div>
     <div class="patient-info">
         <label>NIC:</label>
         <span>
-            <%=locals.patient.nic %>
+            <%= locals.patient.nic %>
         </span>
     </div>
     <div class="patient-info">
         <label>Created At:</label>
         <span>
-            <%=locals.patient.createdAt %>
+            <%= locals.patient.createdAt %>
         </span>
     </div>
     <% if (locals.patient.file !==null) { %>
         <div class="patient-info">
             <label>File</label>
-            <img src="/<%=locals.patient.file.path %>" alt="user-image">
+            <img src="/<%= locals.patient.file.path %>" alt="user-image">
         </div>
         <% } %>
+</div>
+
+<div class="action-buttons">
+    <a href="/edit/<%= locals.patient.id %>" class="view-update-button">Update</a>
+    <form action="/delete/<%= locals.patient.id %>" method="POST">
+        <button type="submit" class="view-delete-button"
+            onclick="return confirm('Are you sure you want to delete record?')">Delete</button>
+    </form>
+</div>
+
 </div>

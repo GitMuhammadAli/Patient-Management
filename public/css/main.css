@@ -4,6 +4,7 @@ body {
     padding-top: 50px;
     padding-left: 270px;
     padding-right: 20px;
+    text-decoration: none;
 }
 /* flash-message */
 .alert {
@@ -198,10 +199,20 @@ body {
     overflow: hidden;
 }
 
+
+
+
 .Patient-table th,
 .Patient-table td {
     padding: 12px;
     text-align: left;
+    text-decoration: none;
+    a {
+            text-decoration: none;
+            color: #007bff;
+            transition: color 0.3s;
+        }
+    
 }
 
 .Patient-table th {

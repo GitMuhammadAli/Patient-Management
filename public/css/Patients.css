@@ -77,46 +77,76 @@ button[type="submit"]:hover {
 
 
 /* View-patient */
+ .view-container {
+     max-width: 800px;
+     margin: auto;
+     padding: 20px;
+     background-color: #f5f5f5;
+     border-radius: 8px;
+     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+ }
 
-         .view-container {
-             max-width: 800px;
-             margin: auto;
-             padding: 20px;
-             background-color: #f5f5f5;
-             border-radius: 8px;
-             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-         }
-    
-         h2 {
-             color: #333;
-             margin-bottom: 20px;
-         }
-    
-         .view-card {
-             background-color: #fff;
-             border-radius: 5px;
-             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-             padding: 20px;
-             margin-bottom: 20px;
-         }
-    
-         .patient-info {
-             margin-bottom: 10px;
-         }
-    
-                 .patient-info label {
-                     font-weight: bold;
-                     display: block;
-                     margin-bottom: 5px;
-                 }
-    
-         .patient-info span {
-             margin-left: 10px;
-         }
-                  .patient-info img {
-                      max-width: 20%;
-                      max-height: 10%;
-                      border-radius: 5px;
-                      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                      margin-top: 5px;
-                  }
+ h2 {
+     color: #333;
+     margin-bottom: 20px;
+ }
+
+ .view-card {
+     background-color: #fff;
+     border-radius: 5px;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+     padding: 20px;
+     margin-bottom: 20px;
+ }
+
+ .patient-info label {
+     font-weight: bold;
+     display: block;
+     margin-bottom: 5px;
+ }
+
+ .patient-info span {
+     margin-left: 10px;
+ }
+
+ .patient-info img {
+     max-width: 20%;
+     height: auto;
+     border-radius: 5px;
+     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+     margin-top: 5px;
+ }
+
+
+
+.action-buttons {
+    display: flex;
+    margin-top: 20px;
+
+}
+
+.action-buttons .view-update-button,
+.action-buttons .view-delete-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+text-decoration: none;
+margin: 3px;
+}
+
+.action-buttons .view-update-button:hover,
+.action-buttons .view-delete-button:hover {
+    opacity: 0.8;
+}
+
+.view-update-button {
+    background-color: #007bff;
+    color: white;
+}
+
+.view-delete-button {
+    background-color: #dc3545 !important;
+   color: white;
+}

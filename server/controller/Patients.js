@@ -14,7 +14,7 @@ exports.create = trycatchAsync(async (req, res, next) => {
     gender,
     phoneNo,
     nic,
-    file: image ? image : null,
+    file: image || null,
   });
   console.log(newPatient);
   const to = req.body.email;
