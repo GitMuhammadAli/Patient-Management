@@ -1,9 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-const home = require("../controller/patients/home");
+const home = require("../patients/home");
 
-const Patient = require("../controller/patients/Patients");
+const Patient = require("../patients/Patients");
 
 const upload = require("../utils/File");
 

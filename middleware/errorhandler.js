@@ -1,5 +1,5 @@
 const errorHandler = (err, req, res, next) => {
-  console.error(err.stack);
+  console.log("inside error handler");
 
   let statusCode = 500;
   let errorMessage = "Internal Server Error";
@@ -10,7 +10,7 @@ const errorHandler = (err, req, res, next) => {
   } else if (err.name === "MongoServerError" && err.code === 11000) {
     statusCode = 400;
     errorMessage =
-      "Duplicate key error. A document with this unique field already exists.";
+      "Duplicate key error. The provided data conflicts with an existing record.";
   } else if (
     err instanceof SyntaxError &&
     err.status === 400 &&
@@ -29,9 +29,7 @@ const errorHandler = (err, req, res, next) => {
     errorMessage = "Validation Error: " + err.message;
   }
 
-  req.flash("error", errorMessage);
-
-  next(err);
+  res.status(statusCode).send(`<script>alert('${errorMessage}');</script>`);
 };
 
 module.exports = errorHandler;

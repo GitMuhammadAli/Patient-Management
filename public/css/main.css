@@ -19,6 +19,13 @@ body {
     border-color: #c3e6cb;
 }
 
+/* error-alert */
+.erroralert-success{
+    background-color: #f2acac;
+    color: #430808;
+    border-color: #e4a5a5;
+}
+
 .closebtn {
     float: right;
     font-size: 20px;
@@ -32,6 +39,11 @@ body {
     color: #000;
     opacity: 0.75;
 }
+
+
+
+
+
 /* Header (Navbar) */
 .navbar {
     position: fixed;

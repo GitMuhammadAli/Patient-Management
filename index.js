@@ -40,7 +40,7 @@ app.use(
 app.use(flash());
 
 // Routers
-const home = require("./routes/customerRoutes");
+const home = require("./controller/routes/customerRoutes");
 
 app.use("/", home);
 
