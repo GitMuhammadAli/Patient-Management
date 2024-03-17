@@ -32,6 +32,7 @@ const errorHandler = (err, req, res, next) => {
     errorMessage = "Internal Server Error";
   }
 
+  console.log(statusCode, errorMessage);
   res.status(statusCode).send(`<script>alert('${errorMessage}');</script>`);
 };
 

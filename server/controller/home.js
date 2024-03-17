@@ -3,11 +3,12 @@ const trycatchAsync = require("../middleware/TryCatchasync.js");
 const Patient = require("../models/patientModel.js");
 
 exports.Home = trycatchAsync(async (req, res) => {
-  const messages = req.flash("info");
+  const info = req.flash("info");
+  const error = req.flash("error");
   const locals = {
     title: "Patient Management",
     discription: "Patient Management",
-    messages: messages,
+    messages: { info, error },
   };
 
   const { page, limit, skip } = pagelimit(req);
@@ -19,7 +20,6 @@ exports.Home = trycatchAsync(async (req, res) => {
   ]);
 
   const totalPatients = await Patient.countDocuments();
-
   const totalPages = Math.ceil(totalPatients / limit);
 
   res.render("index", {
@@ -31,24 +31,76 @@ exports.Home = trycatchAsync(async (req, res) => {
 });
 
 exports.add = trycatchAsync(async (req, res) => {
+  const info = req.flash("info");
   const error = req.flash("error");
   const locals = {
     title: "Patient Management",
     discription: " ADD New Patients",
-    error: error,
+    messages: { info, error },
   };
   res.render("Patients/add", { locals });
 });
 
 exports.view = trycatchAsync(async (req, res) => {
+  const info = req.flash("info");
   const error = req.flash("error");
   const patient = await Patient.findOne({ _id: req.params.id });
-
   const locals = {
     title: "Patient Management",
     discription: "Patient Details",
-    error: error,
     patient: patient,
+    messages: { info, error },
   };
   res.render("Patients/view", { locals });
+});
+
+exports.search = trycatchAsync(async (req, res) => {
+  const search = req.query.cnic;
+  console.log(search);
+  const patient = await Patient.find({ nic: search });
+  console.log(patient);
+  const info = req.flash("info");
+  const error = req.flash("error");
+  const locals = {
+    title: "Patient Management",
+    discription: "Search Patients",
+    err: "Patient Not Found",
+    patient: patient,
+    messages: { info, error },
+  };
+  if (patient.length == 0) {
+    await req.flash("info", "No Patient Found");
+    return res.redirect("/");
+  }
+  res.render("search", { locals });
+});
+
+exports.edit = trycatchAsync(async (req, res) => {
+  console.log("inside edit");
+  const info = req.flash("info");
+  const error = req.flash("error");
+  const patient = await Patient.findOne({ _id: req.params.id });
+  const locals = {
+    title: "Patient Management",
+    discription: "Edit Patients",
+    patient: patient,
+    messages: { info, error },
+  };
+  res.render("Patients/edit", { locals });
+});
+
+exports.del = trycatchAsync(async (req, res) => {
+  const patient = await Patient.findOne({
+    _id: req.params.id,
+  });
+
+  const info = req.flash("info");
+  const error = req.flash("error");
+  const locals = {
+    title: "Patient Management",
+    discription: "Delete Patients",
+    patient: patient,
+    messages: { info, error },
+  };
+  res.render("Patients/delete", { locals });
 });

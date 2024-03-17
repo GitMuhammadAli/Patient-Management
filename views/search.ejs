@@ -1,0 +1,79 @@
+<h2>
+    <%= locals.discription %>
+</h2>
+
+
+
+<% if (locals.patient[0].delete==false) { %>
+
+    <div class="view-card">
+        <div class="patient-info">
+            <label>Name:</label>
+            <span>
+                <%= locals.patient[0].name %>
+            </span>
+        </div>
+        <div class="patient-info">
+            <label>Email:</label>
+            <span>
+                <%= locals.patient[0].email %>
+            </span>
+        </div>
+        <div class="patient-info">
+            <label>Age:</label>
+            <span>
+                <%= locals.patient[0].age %>
+            </span>
+        </div>
+        <div class="patient-info">
+            <label>Gender:</label>
+            <span>
+                <%= locals.patient[0].gender %>
+            </span>
+        </div>
+        <div class="patient-info">
+            <label>Phone Number:</label>
+            <span>
+                <%= locals.patient[0].phoneNo %>
+            </span>
+        </div>
+        <div class="patient-info">
+            <label>Address:</label>
+            <span>
+                <%= locals.patient[0].address %>
+            </span>
+        </div>
+        <div class="patient-info">
+            <label>Created At:</label>
+            <span>
+                <%= locals.patient[0].createdAt %>
+            </span>
+        </div>
+
+        <% if (locals.patient[0].file !==null) { %>
+            <div class="patient-info">
+                <label>File</label>
+                <img src="/<%= locals.patient[0].file.path %>" alt="user-image">
+            </div>
+            <% } %>
+
+                <div class="action-buttons">
+                    <a href="/edit/<%= locals.patient[0].id %>" class="view-update-button">Update</a>
+                    <form action="/delete/<%= locals.patient[0].id %>" method="POST">
+                        <button type="submit" class="view-delete-button"
+                            onclick="return confirm('Are you sure you want to delete record?')">Delete</button>
+                    </form>
+                </div>
+
+    </div>
+    <% }else { %>
+        <div class="view-card">
+
+            <div class="patient-info">
+
+                <h3>
+                    <%=locals.err %>
+                </h3>
+            </div>
+        </div>
+        <% } %>

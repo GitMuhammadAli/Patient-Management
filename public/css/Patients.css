@@ -150,3 +150,23 @@ margin: 3px;
     background-color: #dc3545 !important;
    color: white;
 }
+
+
+
+
+/* DELETE */
+
+
+   .delete-checkbox label {
+       display: flex;
+       align-items: center;
+       font-family: Arial, sans-serif;
+       font-size: 16px;
+       margin: 20px 0;
+   }
+
+   .delete-checkbox input[type="checkbox"] {
+       margin-right: 5px;
+       transform: scale(1.5);
+       
+   }

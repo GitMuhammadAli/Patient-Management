@@ -4,8 +4,8 @@
 
 <nav class="navbar">
     <a class="navbar-brand" href="/">Patient Management</a>
-    <form class="search-form">
-        <input class="search-input" type="search" placeholder="Search" aria-label="Search">
+    <form class="search-form" action="/search" method="GET" role="search">
+        <input class="search-input" type="search" placeholder="Enter-Cnic" aria-label="Search" name="cnic">
         <button class="search-button" type="submit">Search</button>
     </form>
 </nav>

@@ -1,0 +1,28 @@
+<h2>
+    <%=locals.discription%> / <%=locals.patient.nic%>
+</h2>
+
+<div class="form-container">
+    <div class="input-group">
+        <form id="deleteForm" action="/delete/<%=locals.patient._id%>" method="POST">
+            <label for="confirm">Enter Confirmation Password:</label>
+            <input type="password" id="confirm" name="confirm">
+    </div>
+    <div class="delete-checkbox">
+        <label>
+            <input type="checkbox" name="hardDelete" checked><strong>Delete permanently</strong>
+        </label>
+    </div>
+    <label><strong>Are you sure you want to delete?</strong></label>
+    <div class="action-buttons">
+        <button type="button" id="submitDelete" class="view-delete-button">Yes</button>
+        <a href="/view/<%=locals.patient._id%>" class="view-update-button">No</a>
+    </div>
+    </form>
+</div>
+
+<script>
+    document.getElementById('submitDelete').addEventListener('click', function () {
+        document.getElementById('deleteForm').submit();
+    });
+</script>
