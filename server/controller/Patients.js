@@ -27,9 +27,9 @@ exports.create = trycatchAsync(async (req, res, next) => {
   try {
     const savedPatient = await Patient.create(newPatient);
 
-    const emailResult = await sendMail(to, subject, text, html);
-    if (savedPatient && emailResult.success) {
-      // if (savedPatient) {
+    // const emailResult = await sendMail(to, subject, text, html);
+    // if (savedPatient && emailResult.success) {
+    if (savedPatient) {
       await req.flash("info", "New patient has been added.");
       res.redirect("/");
     } else if (!savedPatient && !emailResult.success) {

@@ -50,20 +50,24 @@
             </span>
         </div>
 
-        <% if (locals.patient[0].file !==null) { %>
+        <%if (locals.patient.file && locals.patient.file.path) { %>
             <div class="patient-info">
                 <label>File</label>
-                <img src="/<%= locals.patient[0].file.path %>" alt="user-image">
+                <img src="/<%= locals.patient.file.path %>" alt="user-image">
             </div>
-            <% } %>
-
-                <div class="action-buttons">
-                    <a href="/edit/<%= locals.patient[0].id %>" class="view-update-button">Update</a>
-                    <form action="/delete/<%= locals.patient[0].id %>" method="POST">
-                        <button type="submit" class="view-delete-button"
-                            onclick="return confirm('Are you sure you want to delete record?')">Delete</button>
-                    </form>
+            <% } else { %>
+                <div class="patient-info">
+                    <label>No File Available</label>
                 </div>
+                <% } %>
+
+                    <div class="action-buttons">
+                        <a href="/edit/<%= locals.patient[0].id %>" class="view-update-button">Update</a>
+                        <form action="/delete/<%= locals.patient[0].id %>" method="POST">
+                            <button type="submit" class="view-delete-button"
+                                onclick="return confirm('Are you sure you want to delete record?')">Delete</button>
+                        </form>
+                    </div>
 
     </div>
     <% }else { %>
