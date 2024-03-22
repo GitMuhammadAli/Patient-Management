@@ -1,10 +1,11 @@
 const Patient = require("../models/patientModel.js");
 const trycatchAsync = require("../middleware/TryCatchasync.js");
 const sendMail = require("../utils/SendMail.js");
+const fs = require("fs");
 
 exports.create = trycatchAsync(async (req, res, next) => {
   const { name, email, age, gender, phoneNo, nic, address } = req.body;
-  console.log(req.file);
+
   const image = req.file;
 
   const newPatient = new Patient({
@@ -15,9 +16,9 @@ exports.create = trycatchAsync(async (req, res, next) => {
     phoneNo,
     nic,
     address,
-    file: image || null,
+    file: image || undefined,
   });
-  console.log(newPatient);
+
   const to = req.body.email;
   const subject = `Thank you for visiting our hospital`;
   const text = `Hello, thank you ${req.body.name} for visiting! Your NIC Number Is ${req.body.nic}`;
@@ -25,15 +26,18 @@ exports.create = trycatchAsync(async (req, res, next) => {
 
   try {
     const savedPatient = await Patient.create(newPatient);
-    console.log(savedPatient);
+
     const emailResult = await sendMail(to, subject, text, html);
     if (savedPatient && emailResult.success) {
+      // if (savedPatient) {
       await req.flash("info", "New patient has been added.");
       res.redirect("/");
     } else if (!savedPatient && !emailResult.success) {
       await req.flash("error", "Error sending welcome email.");
+      res.redirect("/");
     } else {
       await req.flash("error", "Error creating patient.");
+      res.redirect("/");
     }
   } catch (err) {
     await req.flash(
@@ -45,32 +49,46 @@ exports.create = trycatchAsync(async (req, res, next) => {
 });
 
 exports.update = trycatchAsync(async (req, res, next) => {
-  const { id } = req.params;
-  const { name, email, age, gender, phoneNo, nic } = req.body;
+  const user = req.params.id;
+  const { name, email, age, gender, phoneNo } = req.body;
   const image = req.file;
+  console.log("image is", image);
 
-  const updatedPatient = {
-    name,
-    email,
-    age,
-    gender,
-    phoneNo,
-    nic,
-    file: image || null,
-    createdAt: Date.now(),
-  };
   try {
-    const patient = await Patient.findByIdAndUpdate(id, updatedPatient, {
-      new: true,
-    });
-    console.log(patient);
-    if (patient) {
+    const patient = await Patient.findById(user);
+    const currentFile = patient.file;
+    console.log("current file is", currentFile);
+    const updatedPatient = {
+      name,
+      email,
+      age,
+      gender,
+      phoneNo,
+      createdAt: Date.now(),
+    };
+    if (image) {
+      updatedPatient.file = {
+        filename: image.filename,
+        path: image.path,
+      };
+    }
+    console.log("updated file is", updatedPatient.file);
+
+    console.log("user id is" + user);
+    const updatedPatientData = await Patient.findByIdAndUpdate(
+      user,
+      updatedPatient,
+      { new: true }
+    );
+
+    if (updatedPatientData) {
       await req.flash("info", "Patient has been updated.");
-      res.redirect(`/view/${id}`);
+      res.redirect(`/view/${user}`);
     }
   } catch (error) {
+    console.log(error);
     await req.flash("error", "Error updating patient.");
-    res.redirect(`/view/${id}`);
+    res.redirect(`/view/${user}`);
   }
 });
 
@@ -80,11 +98,10 @@ exports.delete = trycatchAsync(async (req, res) => {
   const confirmpassword = req.body.confirm;
   const dbdelete = req.body.hardDelete;
 
-  console.log(dbdelete);
   if (password !== confirmpassword) {
     await req.flash("error", "Confirmation Passwords do not match.");
     res.redirect(`/view/${id}`);
-  } else if (password == confirmpassword) {
+  } else if (dbdelete == "off " && password == confirmpassword) {
     const patient = await Patient.findByIdAndUpdate(
       id,
       {

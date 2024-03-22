@@ -56,9 +56,7 @@ exports.view = trycatchAsync(async (req, res) => {
 
 exports.search = trycatchAsync(async (req, res) => {
   const search = req.query.cnic;
-  console.log(search);
   const patient = await Patient.find({ nic: search });
-  console.log(patient);
   const info = req.flash("info");
   const error = req.flash("error");
   const locals = {
@@ -76,7 +74,7 @@ exports.search = trycatchAsync(async (req, res) => {
 });
 
 exports.edit = trycatchAsync(async (req, res) => {
-  console.log("inside edit");
+
   const info = req.flash("info");
   const error = req.flash("error");
   const patient = await Patient.findOne({ _id: req.params.id });

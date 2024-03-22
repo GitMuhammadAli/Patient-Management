@@ -75,12 +75,19 @@
                                 <%= locals.patient.createdAt %>
                             </span>
                         </div>
-                        <% if (locals.patient.file !==null) { %>
+                        <% if (locals.patient.file && locals.patient.file.path) { %>
                             <div class="patient-info">
                                 <label>File</label>
                                 <img src="/<%= locals.patient.file.path %>" alt="user-image">
                             </div>
-                            <% } %>
+                            <% } else { %>
+                                <div class="patient-info">
+                                    <label>No File Available</label>
+                                </div>
+                                <% } %>
+
+
+
                     </div>
 
                     <div class="action-buttons">

@@ -10,6 +10,7 @@ const UserDynamicfile = (directory) => {
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     const userNIC = req.body.nic;
+    console.log("usernic is" + userNIC);
     const userDirectory = `./uploads/${userNIC}`;
     UserDynamicfile(userDirectory);
     cb(null, userDirectory);
