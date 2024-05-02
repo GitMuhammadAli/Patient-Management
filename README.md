@@ -1,4 +1,4 @@
-# Hospital Management System
+# Patient-Management System
 
 This repository contains code for a Hospital Management System, which allows users to manage patients, including adding, viewing, editing, and deleting patient records. The system also provides search functionality based on patient CNIC (Computerized National Identity Card) numbers.
 
