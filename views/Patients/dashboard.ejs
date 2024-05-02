@@ -4,19 +4,38 @@
         <%= locals.discription %>
     </h2>
 
+    <% locals.messages.info.forEach(message=> { %>
+        <div class="alert alert-success" role="alert">
+            <%= message %>
+                <button type="button" class="closebtn" onclick="this.parentElement.style.display='none';"
+                    aria-label="Close">
+                    &times;
+                </button>
+        </div>
+        <% }) %>
 
-    <div class="container">
-        <a href="/add" class="box Create cssbuttons-io-button">
-            <i class="bi bi-plus-lg"></i>
+            <% locals.messages.error.forEach(message=> { %>
+                <div class="alert erroralert-success" role="alert">
+                    <%= message %>
+                        <button type="button" class="closebtn" onclick="this.parentElement.style.display='none';"
+                            aria-label="Close">
+                            &times;
+                        </button>
+                </div>
+                <% }) %>
 
-            creates
-        </a>
+                    <div class="container">
+                        <a href="/add" class="box Create cssbuttons-io-button">
+                            <i class="bi bi-plus-lg"></i>
 
-        <a href="/view" class="box view cssbuttons-io-button  ">
-            <i class="bi bi-eye-fill"></i>
-            View
-        </a>
-    </div>
+                            creates
+                        </a>
+
+                        <a href="/view" class="box view cssbuttons-io-button  ">
+                            <i class="bi bi-eye-fill"></i>
+                            View
+                        </a>
+                    </div>
 
 
 </div>
