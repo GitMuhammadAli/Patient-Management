@@ -2,7 +2,11 @@ const pagelimit = require("../utils/pagelimit.js");
 const trycatchAsync = require("../middleware/TryCatchasync.js");
 const Patient = require("../models/patientModel.js");
 
-exports.Home = trycatchAsync(async (req, res) => {
+
+
+
+
+exports.view = trycatchAsync(async (req, res) => {
   const info = req.flash("info");
   const error = req.flash("error");
   const locals = {
@@ -22,7 +26,7 @@ exports.Home = trycatchAsync(async (req, res) => {
   const totalPatients = await Patient.countDocuments();
   const totalPages = Math.ceil(totalPatients / limit);
 
-  res.render("index", {
+  res.render("Patients/view", {
     locals,
     patient,
     totalPages,
@@ -41,7 +45,7 @@ exports.add = trycatchAsync(async (req, res) => {
   res.render("Patients/add", { locals });
 });
 
-exports.view = trycatchAsync(async (req, res) => {
+exports.patientview = trycatchAsync(async (req, res) => {
   const info = req.flash("info");
   const error = req.flash("error");
   const patient = await Patient.findOne({ _id: req.params.id });
@@ -51,7 +55,7 @@ exports.view = trycatchAsync(async (req, res) => {
     patient: patient,
     messages: { info, error },
   };
-  res.render("Patients/view", { locals });
+  res.render("Patients/patientview", { locals });
 });
 
 exports.search = trycatchAsync(async (req, res) => {
@@ -102,3 +106,16 @@ exports.del = trycatchAsync(async (req, res) => {
   };
   res.render("Patients/delete", { locals });
 });
+
+
+exports.dashboard = trycatchAsync(async (req, res) => {
+  const info = req.flash("info");
+  const error = req.flash("error");
+  const locals = {
+    title: "Patient Management",
+    discription: "Dashboard",
+    messages: { info, error },
+  };
+  res.render("Patients/dashboard", { locals });
+})
+

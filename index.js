@@ -22,6 +22,7 @@ app.use(express.static("views"));
 app.set(path.join(__dirname, "views"));
 app.set(path.join(__dirname, "uploads"));
 
+
 // template engine
 app.use(expressLayout);
 app.set("layout", "layout/main");

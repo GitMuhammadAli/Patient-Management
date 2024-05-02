@@ -7,11 +7,13 @@ const Patient = require("../controller/Patients");
 
 const upload = require("../utils/File");
 
-router.get("/", home.Home);
+router.get("/view", home.view);
+
+router.get("/", home.dashboard);
 
 router.get("/add", home.add);
 
-router.get("/view/:id", home.view);
+router.get("/view/:id", home.patientview);
 
 router.get("/edit/:id", home.edit);
 

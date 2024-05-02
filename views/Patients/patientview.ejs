@@ -1,0 +1,101 @@
+<h2>
+    <%=locals.discription %> / <%= locals.patient.nic %>
+</h2>
+
+<% locals.messages.info.forEach(message=> { %>
+    <div class="alert alert-success" role="alert">
+        <%= message %>
+            <button type="button" class="closebtn" onclick="this.parentElement.style.display='none';"
+                aria-label="Close">
+                &times;
+            </button>
+    </div>
+    <% }) %>
+
+        <% locals.messages.error.forEach(message=> { %>
+            <div class="alert erroralert-success" role="alert">
+                <%= message %>
+                    <button type="button" class="closebtn" onclick="this.parentElement.style.display='none';"
+                        aria-label="Close">
+                        &times;
+                    </button>
+            </div>
+            <% }) %>
+
+
+                <% if (locals.patient.delete==false) { %>
+
+                    <div class="view-card">
+                        <div class="patient-info">
+                            <label>Name:</label>
+                            <span>
+                                <%= locals.patient.name %>
+                            </span>
+                        </div>
+                        <div class="patient-info">
+                            <label>Email:</label>
+                            <span>
+                                <%= locals.patient.email %>
+                            </span>
+                        </div>
+                        <div class="patient-info">
+                            <label>Age:</label>
+                            <span>
+                                <%= locals.patient.age %>
+                            </span>
+                        </div>
+                        <div class="patient-info">
+                            <label>Gender:</label>
+                            <span>
+                                <%= locals.patient.gender %>
+                            </span>
+                        </div>
+                        <div class="patient-info">
+                            <label>Phone Number:</label>
+                            <span>
+                                <%= locals.patient.phoneNo %>
+                            </span>
+                        </div>
+                        <div class="patient-info">
+                            <label>NIC:</label>
+                            <span>
+                                <%= locals.patient.nic %>
+                            </span>
+                        </div>
+                        <div class="patient-info">
+                            <label>Address:</label>
+                            <span>
+                                <%= locals.patient.address %>
+                            </span>
+                        </div>
+
+                        <div class="patient-info">
+                            <label>Created At:</label>
+                            <span>
+                                <%= locals.patient.createdAt %>
+                            </span>
+                        </div>
+                        <% if (locals.patient.file && locals.patient.file.path) { %>
+                            <div class="patient-info">
+                                <label>File</label>
+                                <img src="/<%= locals.patient.file.path %>" alt="user-image">
+                            </div>
+                            <% } else { %>
+                                <div class="patient-info">
+                                    <label>No File Available</label>
+                                </div>
+                                <% } %>
+
+
+
+                    </div>
+
+                    <div class="action-buttons">
+                        <a href="/edit/<%= locals.patient.id %>" class="view-update-button">Update</a>
+                        <form action="/delete/<%= locals.patient.id %>" method="Get">
+                            <button type="submit" class="view-delete-button">Delete</button>
+                        </form>
+                    </div>
+
+
+                    <% } %>
