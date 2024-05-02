@@ -212,8 +212,9 @@ body {
     overflow: hidden;
 }
 
+
 .Patient-table th,
-.Patient-table td {
+.Patient-table td a {
     padding: 12px;
     text-align: left;
     text-decoration: none;
