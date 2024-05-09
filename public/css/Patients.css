@@ -135,6 +135,7 @@ h2 {
 }
 
 .view-update-button {
+    padding: 10px 24px;
     background-color: #007bff;
     color: white;
 }

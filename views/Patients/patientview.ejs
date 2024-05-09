@@ -75,9 +75,9 @@
                                 <%= locals.patient.createdAt %>
                             </span>
                         </div>
-                        <% if (locals.patient.file && locals.patient.file.path) { %>
+                        <%if (locals.patient.file && locals.patient.file.path) { %>
                             <div class="patient-info">
-                                <label>File</label>
+                                <label>Image</label>
                                 <img src="/<%= locals.patient.file.path %>" alt="user-image">
                             </div>
                             <% } else { %>
@@ -86,15 +86,11 @@
                                 </div>
                                 <% } %>
 
-
-
                     </div>
 
                     <div class="action-buttons">
                         <a href="/edit/<%= locals.patient.id %>" class="view-update-button">Update</a>
-                        <form action="/delete/<%= locals.patient.id %>" method="Get">
-                            <button type="submit" class="view-delete-button">Delete</button>
-                        </form>
+                        <a href="/delete/<%= locals.patient.id %>" class="view-delete-button">Delete</a>
                     </div>
 
 

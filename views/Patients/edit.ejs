@@ -27,38 +27,41 @@
                         <div class="form-row">
                             <div class="input-group">
                                 <label for="name">Name:</label>
-                                <input type="text" id="name" name="name" required>
+                                <input type="text" id="name" name="name" required value="<%= locals.patient.name %>">
                             </div>
                             <div class="input-group">
                                 <label for="phoneNo">Phone No:</label>
-                                <input type="tel" id="phoneNo" name="phoneNo" required>
+                                <input type="tel" id="phoneNo" name="phoneNo" required
+                                    value="<%= locals.patient.phoneNo %>">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="input-group">
                                 <label for="email">Email:</label>
-                                <input type="email" id="email" name="email" required>
+                                <input type="email" id="email" name="email" required
+                                    value="<%= locals.patient.email %>">
                             </div>
                             <div class="input-group">
                                 <label for="nic">Cnic:</label>
-                                <input type="number" id="nic" name="nic" required>
+                                <input type="number" id="nic" name="nic" required value="<%= locals.patient.nic %>">
                             </div>
 
                         </div>
                         <div class="form-row">
                             <div class="input-group-age">
                                 <label for="age">Age:</label>
-                                <input type="number" id="age" name="age" required>
+                                <input type="number" id="age" name="age" required value="<%= locals.patient.age %>">
                             </div>
                             <div class="input-group-file">
                                 <label for="file">Image:</label>
-                                <input type="file" id="file" name="file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                                <input type="file" id="file" name="file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                                    value="<%= locals.patient.file%>">
                             </div>
                         </div>
                         <div class="form-row full-width">
                             <div class="input-group">
                                 <label for="Address">Address:</label>
-                                <input type="text" id="Address" name="address">
+                                <input type="text" id="Address" name="address" value="<%= locals.patient.address %>">
                             </div>
                             <div class="input-group">
                                 <label for="gender">Gender</label>

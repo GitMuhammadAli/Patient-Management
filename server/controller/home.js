@@ -61,6 +61,7 @@ exports.patientview = trycatchAsync(async (req, res) => {
 exports.search = trycatchAsync(async (req, res) => {
   const search = req.query.cnic;
   const patient = await Patient.find({ nic: search });
+  console.log(patient);
   const info = req.flash("info");
   const error = req.flash("error");
   const locals = {

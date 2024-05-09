@@ -50,10 +50,10 @@
             </span>
         </div>
 
-        <%if (locals.patient.file && locals.patient.file.path) { %>
+        <%if (locals.patient[0].file && locals.patient[0].file.path) { %>
             <div class="patient-info">
                 <label>Image</label>
-                <img src="/<%= locals.patient.file.path %>" alt="user-image">
+                <img src="/<%= locals.patient[0].file.path %>" alt="user-image">
             </div>
             <% } else { %>
                 <div class="patient-info">

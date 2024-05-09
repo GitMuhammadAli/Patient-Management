@@ -27,19 +27,16 @@ exports.create = trycatchAsync(async (req, res, next) => {
   try {
     const savedPatient = await Patient.create(newPatient);
 
-    // const emailResult = await sendMail(to, subject, text, html);
-    // if (savedPatient && emailResult.success) {
-    if (savedPatient) {
+    const emailResult = await sendMail(to, subject, text, html);
+    if (savedPatient && emailResult.success) {
       await req.flash("info", "New patient has been added.");
-      res.redirect("/");
-    } else if (!savedPatient && !emailResult.success) {
-      await req.flash("error", "Error sending welcome email.");
       res.redirect("/");
     } else {
       await req.flash("error", "Error creating patient.");
-      res.redirect("/");
+      res.redirect("/add");
     }
-  } catch (err) {
+  }
+  catch(error){
     await req.flash(
       "error",
       "Error creating patient. Fill the form again and correctly."
