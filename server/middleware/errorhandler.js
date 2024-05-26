@@ -28,11 +28,13 @@ const errorHandler = (err, req, res, next) => {
     statusCode = 400;
     errorMessage = "Validation Error: " + err.message;
   } else {
+    console.error("Error:", err.stack);
     statusCode = 500;
     errorMessage = "Internal Server Error";
   }
 
   console.log(statusCode, errorMessage);
+  console.error("Error:", err.stack);
   res.status(statusCode).send(`<script>alert('${errorMessage}');</script>`);
 };
 
