@@ -10,7 +10,6 @@ const UserDynamicfile = (directory) => {
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     const userNIC = req.body.nic;
-    console.log("usernic is" + userNIC);
     const userDirectory = `./uploads/${userNIC}`;
     UserDynamicfile(userDirectory);
     cb(null, userDirectory);
@@ -20,18 +19,22 @@ const storage = multer.diskStorage({
   },
 });
 
-const filefilter = (req, file, cb) => {
-  if (
-    file.mimetype == "image/png" ||
-    file.mimetype == "image/jpg" ||
-    file.mimetype == "image/jpeg"
-  ) {
+const fileFilter = (req, file, cb) => {
+  const allowedTypes = [
+    "image/png",
+    "image/jpg",
+    "image/jpeg",
+    "application/pdf",
+    "application/msword",
+    "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+  ];
+  if (allowedTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
     cb(null, false);
   }
 };
 
-const upload = multer({ storage: storage, fileFilter: filefilter });
+const upload = multer({ storage: storage, fileFilter: fileFilter });
 
 module.exports = upload;

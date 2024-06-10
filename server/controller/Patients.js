@@ -5,8 +5,7 @@ const fs = require("fs");
 
 exports.create = trycatchAsync(async (req, res, next) => {
   const { name, email, age, gender, phoneNo, nic, address } = req.body;
-
-  const image = req.file;
+  const files = req.files["files"] || [];
 
   const newPatient = new Patient({
     name,
@@ -16,7 +15,11 @@ exports.create = trycatchAsync(async (req, res, next) => {
     phoneNo,
     nic,
     address,
-    file: image || undefined,
+    files: files.map((file) => ({
+      filename: file.filename,
+      path: file.path,
+      contentType: file.mimetype,
+    })),
   });
 
   const to = req.body.email;
@@ -26,8 +29,8 @@ exports.create = trycatchAsync(async (req, res, next) => {
 
   try {
     const savedPatient = await Patient.create(newPatient);
-
     const emailResult = await sendMail(to, subject, text, html);
+
     if (savedPatient && emailResult.success) {
       await req.flash("info", "New patient has been added.");
       res.redirect("/");
@@ -35,8 +38,7 @@ exports.create = trycatchAsync(async (req, res, next) => {
       await req.flash("error", "Error creating patient.");
       res.redirect("/add");
     }
-  }
-  catch(error){
+  } catch (error) {
     await req.flash(
       "error",
       "Error creating patient. Fill the form again and correctly."
@@ -47,31 +49,32 @@ exports.create = trycatchAsync(async (req, res, next) => {
 
 exports.update = trycatchAsync(async (req, res, next) => {
   const user = req.params.id;
-  const { name, email, age, gender, phoneNo } = req.body;
-  const image = req.file;
-  console.log("image is", image);
+  const { name, email, age, gender, phoneNo, address } = req.body;
+  const files = req.files["files"] || [];
+
+  if (!Array.isArray(files)) {
+    files = [files];
+  }
+
+  const fileArray = files.map((file) => ({
+    filename: file.filename,
+    path: file.path,
+    contentType: file.mimetype,
+  }));
 
   try {
     const patient = await Patient.findById(user);
-    const currentFile = patient.file;
-    console.log("current file is", currentFile);
     const updatedPatient = {
       name,
       email,
       age,
       gender,
       phoneNo,
+      address,
       createdAt: Date.now(),
+      files: fileArray.length > 0 ? fileArray : patient.files,
     };
-    if (image) {
-      updatedPatient.file = {
-        filename: image.filename,
-        path: image.path,
-      };
-    }
-    console.log("updated file is", updatedPatient.file);
 
-    console.log("user id is" + user);
     const updatedPatientData = await Patient.findByIdAndUpdate(
       user,
       updatedPatient,

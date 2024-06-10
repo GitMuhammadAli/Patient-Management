@@ -23,51 +23,51 @@
             <% }) %>
 
                 <div class="form-container">
-                    <form action="/create" method="POST" enctype="multipart/form-data">
-                        <div class="form-row">
-                            <div class="input-group">
-                                <label for="name">Name:</label>
-                                <input type="text" id="name" name="name" required>
+                    <div class="form-container">
+                        <form action="/create" method="POST" enctype="multipart/form-data">
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <label for="name">Name:</label>
+                                    <input type="text" id="name" name="name" required>
+                                </div>
+                                <div class="input-group">
+                                    <label for="phoneNo">Phone No:</label>
+                                    <input type="tel" id="phoneNo" name="phoneNo" required>
+                                </div>
                             </div>
-                            <div class="input-group">
-                                <label for="phoneNo">Phone No:</label>
-                                <input type="tel" id="phoneNo" name="phoneNo" required>
+                            <div class="form-row">
+                                <div class="input-group">
+                                    <label for="email">Email:</label>
+                                    <input type="email" id="email" name="email" required>
+                                </div>
+                                <div class="input-group">
+                                    <label for="nic">Cnic:</label>
+                                    <input type="number" id="nic" name="nic" required>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="input-group">
-                                <label for="email">Email:</label>
-                                <input type="email" id="email" name="email" required>
+                            <div class="form-row">
+                                <div class="input-group-age">
+                                    <label for="age">Age:</label>
+                                    <input type="number" id="age" name="age" required>
+                                </div>
+                                <div class="input-group-file">
+                                    <label for="files">Images:</label>
+                                    <input type="file" id="files" name="files" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" multiple>
+                                </div>
                             </div>
-                            <div class="input-group">
-                                <label for="nic">Cnic:</label>
-                                <input type="number" id="nic" name="nic" required>
+                            <div class="form-row full-width">
+                                <div class="input-group">
+                                    <label for="Address">Address:</label>
+                                    <input type="text" id="Address" name="address">
+                                </div>
+                                <div class="input-group">
+                                    <label for="gender">Gender</label>
+                                    <select id="gender" name="gender" required>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                </div>
                             </div>
-
-                        </div>
-                        <div class="form-row">
-                            <div class="input-group-age">
-                                <label for="age">Age:</label>
-                                <input type="number" id="age" name="age" required>
-                            </div>
-                            <div class="input-group-file">
-                                <label for="file">Image:</label>
-                                <input type="file" id="file" name="file" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
-                            </div>
-                        </div>
-                        <div class="form-row full-width">
-                            <div class="input-group">
-                                <label for="Address">Address:</label>
-                                <input type="text" id="Address" name="address">
-                            </div>
-                            <div class="input-group">
-                                <label for="gender">Gender</label>
-                                <select id="gender" name="gender" required>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                </select>
-                            </div>
-                        </div>
-                        <button type="submit">Create patients</button>
-                    </form>
-                </div>
+                            <button type="submit">Create Patient</button>
+                        </form>
+                    </div>

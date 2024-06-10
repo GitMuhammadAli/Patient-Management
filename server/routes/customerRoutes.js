@@ -17,9 +17,16 @@ router.get("/view/:id", home.patientview);
 
 router.get("/edit/:id", home.edit);
 
-router.post("/create", upload.single("file"), Patient.create);
-
-router.post("/update/:id", upload.single("file"), Patient.update);
+router.post(
+  "/create",
+  upload.fields([{ name: "files", maxCount: 10 }]),
+  Patient.create
+);
+router.post(
+  "/update/:id",
+  upload.fields([{ name: "files", maxCount: 10 }]),
+  Patient.update
+);
 
 router.get("/delete/:id", home.del);
 

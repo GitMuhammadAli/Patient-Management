@@ -75,16 +75,22 @@
                                 <%= locals.patient.createdAt %>
                             </span>
                         </div>
-                        <%if (locals.patient.file && locals.patient.file.path) { %>
+                        <% if (locals.patient.files && locals.patient.files.length> 0) { %>
                             <div class="patient-info">
-                                <label>Image</label>
-                                <img src="/<%= locals.patient.file.path %>" alt="user-image">
+                                <label>Images:</label>
+                                <% locals.patient.files.forEach(file=> { %>
+                                    <div class="file-info">
+                                        <img src="/<%= file.path %>" alt="user-image" />
+                                        </p>
+                                    </div>
+                                    <% }) %>
                             </div>
                             <% } else { %>
                                 <div class="patient-info">
-                                    <label>No File Available</label>
+                                    <label>No Files Available</label>
                                 </div>
                                 <% } %>
+
 
                     </div>
 

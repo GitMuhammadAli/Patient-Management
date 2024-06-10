@@ -40,11 +40,13 @@ const PatientSchema = new Schema({
   address: {
     type: String,
   },
-  file: {
-    filename: String,
-    path: String,
-    contentType: String,
-  },
+  files: [
+    {
+      filename: String,
+      path: String,
+      contentType: String,
+    },
+  ],
   delete: { type: Boolean, default: false },
 });
 
