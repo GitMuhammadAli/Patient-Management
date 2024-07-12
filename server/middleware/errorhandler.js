@@ -35,7 +35,8 @@ const errorHandler = (err, req, res, next) => {
 
   console.log(statusCode, errorMessage);
   console.error("Error:", err.stack);
-  res.status(statusCode).send(`<script>alert('${errorMessage}');</script>`);
+
+  res.status(statusCode).render("error", { statusCode, errorMessage ,layout: 'layout/err' } );
 };
 
 module.exports = errorHandler;

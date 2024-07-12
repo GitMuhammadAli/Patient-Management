@@ -75,23 +75,40 @@
                                 <%= locals.patient.createdAt %>
                             </span>
                         </div>
-                        <% if (locals.patient.files && locals.patient.files.length> 0) { %>
+                        <% if (locals.patient.files && locals.patient.files.length > 0) { %>
                             <div class="patient-info">
-                                <label>Images:</label>
-                                <% locals.patient.files.forEach(file=> { %>
+                                <label>Files:</label>
+                                <% locals.patient.files.forEach(file => { 
+                                    const fileType = file.path.split('.').pop().toLowerCase();
+                                %>
                                     <div class="file-info">
-                                        <img src="/<%= file.path %>" alt="user-image" />
-                                        </p>
+                                        <% if (['jpg', 'jpeg', 'png'].includes(fileType)) { %>
+                                            <img src="/<%= file.path %>" alt="<%= file.filename %>" />
+                                        <% } else { %>
+                                            <a href="/<%= file.path %>" target="_blank"><%= file.filename %></a>
+                                        <% } %>
                                     </div>
-                                    <% }) %>
+                                <% }) %>
                             </div>
-                            <% } else { %>
-                                <div class="patient-info">
-                                    <label>No Files Available</label>
-                                </div>
-                                <% } %>
-
-
+                        <% } else { %>
+                            <div class="patient-info">
+                                <label>No Files Available</label>
+                            </div>
+                        <% } %>
+                        
+                        <% if (locals.patient && locals.patient.files && locals.patient.files.length > 0) { %>
+                            <div class="download-links">
+                                <% locals.patient.files.forEach(file => { %>
+                                    <a href="/download/<%= file.filename %>" download="<%= file.filename %>">
+                                        <i class="fas fa-download"></i> Download <%= file.filename %>
+                                    </a>
+                                <% }) %>
+                            </div>
+                        <% } else { %>
+                            <p>No files available for download.</p>
+                        <% } %>
+                        
+                                  
                     </div>
 
                     <div class="action-buttons">

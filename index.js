@@ -22,7 +22,6 @@ app.use(express.static("views"));
 app.set(path.join(__dirname, "views"));
 app.set(path.join(__dirname, "uploads"));
 
-
 // template engine
 app.use(expressLayout);
 app.set("layout", "layout/main");
@@ -49,8 +48,9 @@ app.use("/", home);
 
 // 404 page
 app.get("*", (req, res) => {
-  res.status(404).render("404");
+  res.status(404 ).render("404");
 });
+
 
 // Error handler
 app.use(errorHandler);

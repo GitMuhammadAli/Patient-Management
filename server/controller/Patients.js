@@ -1,7 +1,8 @@
 const Patient = require("../models/patientModel.js");
 const trycatchAsync = require("../middleware/TryCatchasync.js");
 const sendMail = require("../utils/SendMail.js");
-const fs = require("fs");
+const path = require('path');
+const fs = require('fs');
 
 exports.create = trycatchAsync(async (req, res, next) => {
   const { name, email, age, gender, phoneNo, nic, address } = req.body;
@@ -122,4 +123,53 @@ exports.delete = trycatchAsync(async (req, res) => {
       res.redirect("/");
     }
   }
+});
+
+
+exports.download = trycatchAsync(async (req, res) => {
+  const filename = req.params.filename;
+
+  const baseUploadsDir = path.join(__dirname, '..', '..', 'uploads');
+
+  if (!fs.existsSync(baseUploadsDir)) {
+    console.error(`Uploads directory does not exist: ${baseUploadsDir}`);
+    return res.status(500).send("Uploads directory does not exist.");
+  }
+
+  const findFile = (dir, filename) => {
+    const subdirs = fs.readdirSync(dir);
+    for (let subdir of subdirs) {
+      const currentPath = path.join(dir, subdir);
+      if (fs.statSync(currentPath).isDirectory()) {
+        const filePath = path.join(currentPath, filename);
+        if (fs.existsSync(filePath)) {
+          return filePath;
+        }
+      }
+    }
+    return null;
+  };
+
+  const filePath = findFile(baseUploadsDir, filename);
+
+  if (!filePath) {
+    console.log(`File not found: ${filename}`);
+    return res.status(404).send("File not found.");
+  }
+
+  console.log(`Attempting to download file: ${filePath}`);
+  
+  res.setHeader('Content-Disposition', `attachment; filename=${filename}`);
+  res.setHeader('Content-Type', 'application/octet-stream');
+  
+  const readStream = fs.createReadStream(filePath);
+  
+  readStream.on('error', (err) => {
+    console.error(`Error reading file: ${err}`);
+    res.status(500).send("Error reading file.");
+  });
+
+  readStream.pipe(res).on('finish', () => {
+    console.log('Download Completed');
+  });
 });

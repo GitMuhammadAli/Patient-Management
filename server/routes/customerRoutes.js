@@ -30,6 +30,8 @@ router.post(
 
 router.get("/delete/:id", home.del);
 
+router.get("/download/:filename", Patient.download);
+
 router.post("/delete/:id", Patient.delete);
 
 router.get("/search", home.search);

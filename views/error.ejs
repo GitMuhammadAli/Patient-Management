@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error <%= statusCode %></title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            
+        }
+ .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 40px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+        h1 {
+            color: #ff6347;
+        }
+       
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Error <%= statusCode %></h1>
+        <p><%= errorMessage %></p>
+        <p>Oops! Something went wrong.</p>
+    </div>
+</body>
+</html>
