@@ -1,120 +1,114 @@
 <h2>
-    <%=locals.discription %> / <%= locals.patient.nic %>
-</h2>
-
-<% locals.messages.info.forEach(message=> { %>
-    <div class="alert alert-success" role="alert">
-        <%= message %>
-            <button type="button" class="closebtn" onclick="this.parentElement.style.display='none';"
-                aria-label="Close">
-                &times;
-            </button>
+    <%= locals.discription %> / <%= locals.patient.nic %>
+  </h2>
+  
+  <% locals.messages.info.forEach(message => { %>
+  <div class="alert alert-success" role="alert">
+    <%= message %>
+    <button type="button" class="closebtn" onclick="this.parentElement.style.display='none';" aria-label="Close">
+      &times;
+    </button>
+  </div>
+  <% }) %>
+  
+  <% locals.messages.error.forEach(message => { %>
+  <div class="alert erroralert-success" role="alert">
+    <%= message %>
+    <button type="button" class="closebtn" onclick="this.parentElement.style.display='none';" aria-label="Close">
+      &times;
+    </button>
+  </div>
+  <% }) %>
+  
+  <% if (locals.patient.delete == false) { %>
+  <div class="view-card">
+    <div class="patient-info">
+      <label>Name:</label>
+      <span>
+        <%= locals.patient.name %>
+      </span>
     </div>
-    <% }) %>
-
-        <% locals.messages.error.forEach(message=> { %>
-            <div class="alert erroralert-success" role="alert">
-                <%= message %>
-                    <button type="button" class="closebtn" onclick="this.parentElement.style.display='none';"
-                        aria-label="Close">
-                        &times;
-                    </button>
+    <div class="patient-info">
+      <label>Email:</label>
+      <span>
+        <%= locals.patient.email %>
+      </span>
+    </div>
+    <div class="patient-info">
+      <label>Age:</label>
+      <span>
+        <%= locals.patient.age %>
+      </span>
+    </div>
+    <div class="patient-info">
+      <label>Gender:</label>
+      <span>
+        <%= locals.patient.gender %>
+      </span>
+    </div>
+    <div class="patient-info">
+      <label>Phone Number:</label>
+      <span>
+        <%= locals.patient.phoneNo %>
+      </span>
+    </div>
+    <div class="patient-info">
+      <label>NIC:</label>
+      <span>
+        <%= locals.patient.nic %>
+      </span>
+    </div>
+    <div class="patient-info">
+      <label>Address:</label>
+      <span>
+        <%= locals.patient.address %>
+      </span>
+    </div>
+    <div class="patient-info">
+      <label>Created At:</label>
+      <span>
+        <%= locals.patient.createdAt %>
+      </span>
+    </div>
+  
+    <div class="patient-files-container">
+      <% if (locals.patient && locals.patient.files && locals.patient.files.length > 0) { %>
+        <div class="patient-info">
+          <label>Files:</label>
+          <div class="files-list">
+            <% locals.patient.files.forEach(file => { 
+                const fileType = file.path.split('.').pop().toLowerCase();
+            %>
+            <div class="file-info">
+              <% if (['jpg', 'jpeg', 'png'].includes(fileType)) { %>
+                <div class="image-thumbnail">
+                  <img src="/<%= file.path %>" alt="<%= file.filename %>" class="file-image"/>
+                </div>
+              <% } else { %>
+                <div class="file-icon">
+                  <i class="fas fa-file-alt file-icon-image"></i>
+                  <a href="/<%= file.path %>" target="_blank" class="file-link"><%= file.filename %></a>
+                </div>
+              <% } %>
+              <a href="/download/<%= file.filename %>" class="download-button">
+                <i class="fas fa-download"></i> Download
+              </a>
             </div>
             <% }) %>
-
-
-                <% if (locals.patient.delete==false) { %>
-
-                    <div class="view-card">
-                        <div class="patient-info">
-                            <label>Name:</label>
-                            <span>
-                                <%= locals.patient.name %>
-                            </span>
-                        </div>
-                        <div class="patient-info">
-                            <label>Email:</label>
-                            <span>
-                                <%= locals.patient.email %>
-                            </span>
-                        </div>
-                        <div class="patient-info">
-                            <label>Age:</label>
-                            <span>
-                                <%= locals.patient.age %>
-                            </span>
-                        </div>
-                        <div class="patient-info">
-                            <label>Gender:</label>
-                            <span>
-                                <%= locals.patient.gender %>
-                            </span>
-                        </div>
-                        <div class="patient-info">
-                            <label>Phone Number:</label>
-                            <span>
-                                <%= locals.patient.phoneNo %>
-                            </span>
-                        </div>
-                        <div class="patient-info">
-                            <label>NIC:</label>
-                            <span>
-                                <%= locals.patient.nic %>
-                            </span>
-                        </div>
-                        <div class="patient-info">
-                            <label>Address:</label>
-                            <span>
-                                <%= locals.patient.address %>
-                            </span>
-                        </div>
-
-                        <div class="patient-info">
-                            <label>Created At:</label>
-                            <span>
-                                <%= locals.patient.createdAt %>
-                            </span>
-                        </div>
-                        <% if (locals.patient.files && locals.patient.files.length > 0) { %>
-                            <div class="patient-info">
-                                <label>Files:</label>
-                                <% locals.patient.files.forEach(file => { 
-                                    const fileType = file.path.split('.').pop().toLowerCase();
-                                %>
-                                    <div class="file-info">
-                                        <% if (['jpg', 'jpeg', 'png'].includes(fileType)) { %>
-                                            <img src="/<%= file.path %>" alt="<%= file.filename %>" />
-                                        <% } else { %>
-                                            <a href="/<%= file.path %>" target="_blank"><%= file.filename %></a>
-                                        <% } %>
-                                    </div>
-                                <% }) %>
-                            </div>
-                        <% } else { %>
-                            <div class="patient-info">
-                                <label>No Files Available</label>
-                            </div>
-                        <% } %>
-                        
-                        <% if (locals.patient && locals.patient.files && locals.patient.files.length > 0) { %>
-                            <div class="download-links">
-                                <% locals.patient.files.forEach(file => { %>
-                                    <a href="/download/<%= file.filename %>" download="<%= file.filename %>">
-                                        <i class="fas fa-download"></i> Download <%= file.filename %>
-                                    </a>
-                                <% }) %>
-                            </div>
-                        <% } else { %>
-                            <p>No files available for download.</p>
-                        <% } %>
-                        
-                                  
-                    </div>
-
-                    <div class="action-buttons">
-                        <a href="/edit/<%= locals.patient.id %>" class="view-update-button">Update</a>
-                        <a href="/delete/<%= locals.patient.id %>" class="view-delete-button">Delete</a>
-                    </div>
-
-
-                    <% } %>
+          </div>
+        </div>
+      <% } else { %>
+        <div class="patient-info">
+          <label>No Files Available</label>
+        </div>
+        <p>No files available for download.</p>
+      <% } %>
+    </div>
+  
+    <div class="action-buttons">
+      <a href="/edit/<%= locals.patient.id %>" class="view-update-button">Update</a>
+      <a href="/delete/<%= locals.patient.id %>" class="view-delete-button">Delete</a>
+    </div>
+  </div>
+  <% } %>
+  
