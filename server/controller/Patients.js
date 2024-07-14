@@ -42,7 +42,7 @@ exports.create = trycatchAsync(async (req, res, next) => {
   } catch (error) {
     await req.flash(
       "error",
-      "Error creating patient. Fill the form again and correctly."
+      `Error creating patient. Fill the form again and correctly. ${error}`
     );
     res.redirect("/add");
   }
@@ -50,8 +50,8 @@ exports.create = trycatchAsync(async (req, res, next) => {
 
 exports.update = trycatchAsync(async (req, res, next) => {
   const user = req.params.id;
-  const { name, email, age, gender, phoneNo, address } = req.body;
-  const files = req.files["files"] || [];
+  const { name, email, age, gender, phoneNo, address, keepOldFiles } = req.body;
+  let files = req.files["files"] || [];
 
   if (!Array.isArray(files)) {
     files = [files];
@@ -65,6 +65,12 @@ exports.update = trycatchAsync(async (req, res, next) => {
 
   try {
     const patient = await Patient.findById(user);
+
+    let updatedFiles = fileArray;
+    if (keepOldFiles) {
+      updatedFiles = [...patient.files, ...fileArray];
+    }
+
     const updatedPatient = {
       name,
       email,
@@ -72,8 +78,7 @@ exports.update = trycatchAsync(async (req, res, next) => {
       gender,
       phoneNo,
       address,
-      createdAt: Date.now(),
-      files: fileArray.length > 0 ? fileArray : patient.files,
+      files: updatedFiles,
     };
 
     const updatedPatientData = await Patient.findByIdAndUpdate(
@@ -93,35 +98,46 @@ exports.update = trycatchAsync(async (req, res, next) => {
   }
 });
 
+
 exports.delete = trycatchAsync(async (req, res) => {
+  console.log("inside delete");
+  console.log(req.body);
+
   const id = req.params.id;
   const password = "12345678";
   const confirmpassword = req.body.confirm;
-  const dbdelete = req.body.hardDelete;
+  const dbdelete = req.body.hardDelete === 'on'; 
+
+  console.log(id);
+  console.log(dbdelete);
 
   if (password !== confirmpassword) {
     await req.flash("error", "Confirmation Passwords do not match.");
-    res.redirect(`/view/${id}`);
-  } else if (dbdelete == "off " && password == confirmpassword) {
-    const patient = await Patient.findByIdAndUpdate(
-      id,
-      {
-        delete: true,
-      },
-      {
-        new: true,
-      }
-    );
+    return res.redirect(`/view/${id}`);
+  }
+
+  try {
+    if (!dbdelete) {
+     let patient = await Patient.findByIdAndUpdate(
+        id,
+        { delete: true }, 
+        { new: true } 
+      );
+    } else {
+      patient = await Patient.findByIdAndDelete(id);
+    }
+
     if (patient) {
       await req.flash("info", "Patient has been deleted.");
-      res.redirect("/");
+      return res.redirect("/");
+    } else {
+      await req.flash("error", "Patient not found.");
+      return res.redirect("/");
     }
-  } else if (dbdelete == "on" && password == confirmpassword) {
-    const patient = await Patient.findByIdAndDelete(id);
-    if (patient) {
-      await req.flash("info", "Patient has been deleted.");
-      res.redirect("/");
-    }
+  } catch (err) {
+    console.error("Error deleting patient:", err);
+    await req.flash("error", "Failed to delete patient.");
+    return res.redirect(`/view/${id}`);
   }
 });
 
@@ -173,3 +189,5 @@ exports.download = trycatchAsync(async (req, res) => {
     console.log('Download Completed');
   });
 });
+
+
