@@ -4,6 +4,10 @@ const expressLayout = require("express-ejs-layouts");
 const errorHandler = require("./server/middleware/errorhandler");
 const flash = require("connect-flash");
 const session = require("express-session");
+const compression = require('compression');
+const partials = require('express-partial');
+
+
 
 require("dotenv").config();
 const app = express();
@@ -23,11 +27,16 @@ app.set(path.join(__dirname, "views"));
 app.set(path.join(__dirname, "uploads"));
 
 // template engine
+app.use(partials());
 app.use(expressLayout);
 app.set("layout", "layout/main");
 app.set("view engine", "ejs");
 
 // Express Session
+app.use(express.static(path.join(__dirname, 'public'), {
+  maxAge: '1d',
+}));
+app.use(compression());
 app.use(
   session({
     secret: "secret",
@@ -42,9 +51,8 @@ app.use(
 app.use(flash());
 
 // Routers
-const home = require("./server/routes/customerRoutes");
 
-app.use("/", home);
+app.use("/", require("./server/routes/customerRoutes"));
 
 // 404 page
 app.get("*", (req, res) => {

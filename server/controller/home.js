@@ -120,3 +120,4 @@ exports.dashboard = trycatchAsync(async (req, res) => {
   res.render("Patients/dashboard", { locals });
 })
 
+
