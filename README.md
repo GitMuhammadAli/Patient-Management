@@ -60,7 +60,6 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 ALI SHAHID  - alishahids189@gmail.com
 
 
-## Vedio:
-https://github.com/user-attachments/assets/5dd781ce-9521-4788-af79-8ba89b6d2ec6
+
 
 
