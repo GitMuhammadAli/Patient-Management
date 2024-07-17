@@ -9,7 +9,8 @@ const partials = require('express-partial');
 
 
 
-require("dotenv").config();
+const dotenv = require("dotenv");
+dotenv.config();
 const app = express();
 
 // DB connection

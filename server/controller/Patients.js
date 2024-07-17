@@ -33,11 +33,14 @@ exports.create = trycatchAsync(async (req, res, next) => {
     const emailResult = await sendMail(to, subject, text, html);
 
     if (savedPatient && emailResult.success) {
-      await req.flash("info", "New patient has been added.");
+      await req.flash("info", "New patient has been added and email has been sent.");
+      res.redirect("/view");
+    } else if (savedPatient && !emailResult.success) {
+      await req.flash("error", "New patient added but failed to send email.");
       res.redirect("/");
     } else {
-      await req.flash("error", "Error creating patient.");
-      res.redirect("/add");
+      await req.flash("error", "Error creating patient. Please try again.");
+      res.redirect("/");
     }
   } catch (error) {
     await req.flash(
@@ -47,7 +50,6 @@ exports.create = trycatchAsync(async (req, res, next) => {
     res.redirect("/add");
   }
 });
-
 exports.update = trycatchAsync(async (req, res, next) => {
   const user = req.params.id;
   const { name, email, age, gender, phoneNo, address, keepOldFiles } = req.body;
