@@ -32,8 +32,10 @@ This repository contains code for a Patient Management System, which allows user
      MAILTRAP_USER=<your_mailtrap_username>
      MAILTRAP_PASS=<your_mailtrap_password>
      ```
-4. Run the application: `npm start`
-5. Access the application in your browser at `http://localhost:7500`
+
+4. Or Check the .env example
+5. Run the application: `npm start`
+6. Access the application in your browser at `http://localhost:7500`
 
 ## Folder Structure
 - `server/`: Contains backend code, including routes, controllers, middleware, and error handling.
